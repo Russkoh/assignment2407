@@ -4,7 +4,7 @@ import user.User;
 
 public class Repository implements IRepository {
 	
-	private User[] users;
+	private User[] users = new User[0];
 	public String saveAccount(int userID, double value){
 		
 		User[] copyOfUsers = new User[users.length+1];

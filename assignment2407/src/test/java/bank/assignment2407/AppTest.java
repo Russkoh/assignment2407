@@ -1,8 +1,8 @@
 package bank.assignment2407;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import service.Service;
 import utility.Utility;
 import user.User;
@@ -12,16 +12,15 @@ import exceptions.*;
  * Unit test for simple App.
  */
 public class AppTest 
-    extends TestCase
 {
 	Service service = new Service();
     
+	@Test
     public void addingAccount()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
     	User u = new User(new Utility().UniqueIDGenerator(), 150.0d);
-    	service.createAccount(u);
-		
+    	assertEquals("Account has been saved",service.createAccount(u));
 	}
-	
+	/*
 	@Test(expected = InsufficientFundsException.class)
 	public void addingInsufficientAccount() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
 		User u = new User(new Utility().UniqueIDGenerator(), 10.0d);
@@ -29,11 +28,12 @@ public class AppTest
 	}
 	
 	
+	@Test
 	public void withdrawingMoney() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		User u = new User(new Utility().UniqueIDGenerator(), 150.0d);
     	service.createAccount(u);
 		service.withdraw(u, 50.0d);
-		assertEquals(100.0d ,u.getBalance());
+		assertEquals((int) 100,(int) u.getBalance());
 	}
 	
 	@Test(expected = InsufficientFundsException.class)
@@ -59,12 +59,13 @@ public class AppTest
 		
 	}
 	
-	
+
+	@Test
 	public void depositingMoney() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		User u = new User(new Utility().UniqueIDGenerator(), 1400.0d);
 		service.createAccount(u);
 		service.deposit(u, 1100.0d);
-		assertEquals(2500.0d, u.getBalance());
+		assertEquals((int) 2500.0d,(int) u.getBalance());
 	}
 	
 	@Test(expected = InvalidAccountException.class)
@@ -75,34 +76,60 @@ public class AppTest
 		service.deposit(p, 1100.0d);
 	}
 	
-	
+	@Test
 	public void viewingBalance() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		User u = new User(new Utility().UniqueIDGenerator(), 1400.0d);
 		service.createAccount(u);
+		
+		assertEquals(1400, (int)service.showBalance(u).getBalance());
 	}
 	
 	@Test(expected = InvalidAccountException.class)
 	public void viewBalanceOfInvalidAccount() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
-		
+		User u = new User(1, 1400.0d);
+		User p = new User(1, 1400.0d);
+		service.createAccount(u);
+		service.createAccount(p);
+		service.showBalance(p);
 	}
 	
-	
+	@Test
 	public void transferFunds()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
-		
+	
+		User u = new User(1, 1400.0d);
+		User p = new User(2, 1400.0d);
+		service.createAccount(u);
+		service.createAccount(p);
+		service.fundTransfer(u, p, 800.0d);
+		assertEquals(600,(int)u.getBalance());
 	}
+	
 	@Test(expected = InsufficientFundsException.class)
 	public void transferFundsWithInsufficientFunds()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
-		
+		User u = new User(1, 700.0d);
+		User p = new User(2, 1400.0d);
+		service.createAccount(u);
+		service.createAccount(p);
+		service.fundTransfer(u, p, 800.0d);
 	}
 	
 	@Test(expected = InvalidAccountException.class)
 	public void transferFundsToInvalidAccount() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
-		
+		User u = new User(1, 1400.0d);
+		User p = new User(1, 1400.0d);
+		service.createAccount(u);
+		service.createAccount(p);
+		service.fundTransfer(u, p, 800.0d);
 	}
-
-	
+/*
+	@Test
 	public void transactionHistory()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
-		
+		User u = new User(1, 1400.0d);
+		User p = new User(2, 1400.0d);
+		service.createAccount(u);
+		service.createAccount(p);
+		service.fundTransfer(u, p, 800.0d);
+		service.printTransactions(u);
 	}
 	
 	@Test(expected = InvalidAccountException.class)
@@ -119,6 +146,6 @@ public class AppTest
 	public void viewingTransactionHistoryWithoutValidDateRange()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
 		
 	}
-    
+    */
     
 }
