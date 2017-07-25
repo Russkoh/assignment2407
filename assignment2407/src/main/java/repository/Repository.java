@@ -16,16 +16,16 @@ public class Repository implements IRepository {
 		copyOfUsers[users.length] = new User(userID,value);
 		users = copyOfUsers;
 		
-		return "Account Saved";
+		return "Account has been saved";
 	}
 	
-	public boolean findAccount(int userID){
-		for(User person:users){
-			if(person.getUserID() == userID){
-				return false;
+	public int findAccount(int userID){
+		for(int i = 0; i < users.length; i++){
+			if(users[i].getUserID() == userID){
+				return i;
 			}
 		}
-		return true;
+		return -1;
 	}
 	
 	public User[] findAll(){

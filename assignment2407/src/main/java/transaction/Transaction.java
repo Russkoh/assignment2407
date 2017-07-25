@@ -3,12 +3,12 @@ package transaction;
 public class Transaction {
 	
 	private String description;
-	private String date;
+	private int date;
 	private double amount;
 	private double balance;
 	private int transactionID;
 	
-	Transaction(String description, String date, double amount, double balance, int transactionID){
+	public Transaction(String description, int date, double amount, double balance, int transactionID){
 		this.description = description;
 		this.date = date;
 		this.amount = amount;
@@ -20,7 +20,7 @@ public class Transaction {
 		return this.description;
 	}
 	
-	public String getTransactionDate(){
+	public int getTransactionDate(){
 		return this.date;
 	}
 	

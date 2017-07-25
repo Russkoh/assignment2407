@@ -4,7 +4,7 @@ public class IncorrectDateRange extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	IncorrectDateRange(String s){
+	public IncorrectDateRange(String s){
 		super(s);
 	}
 }

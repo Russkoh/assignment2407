@@ -1,7 +1,11 @@
 package repository;
 
-interface IRepository {
+import user.User;
+
+
+public interface IRepository {
 
 	String saveAccount(int userID, double value);
-	boolean findAccount(int userID);
+	int findAccount(int userID);
+	User[] findAll();
 }
