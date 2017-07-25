@@ -9,17 +9,18 @@ import utility.*;
 public class Service implements IService {
 
 	private IRepository repo = new Repository();
-	String nu = "Null User", anp = "Account not present";
+	String nu = "Null User";
+	String anp = "Account not present";
 	
 
 	
 	public String createAccount(User u) throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		
 		if(u == null){
-			throw new InvalidAccountException("Null User");
+			throw new InvalidAccountException(nu);
 		}
 		else if(u.getBalance()<100.0d){
-			throw new InsufficientFundsException("Null User");
+			throw new InsufficientFundsException(nu);
 		}
 		else if(checkAccount(u.getUserID())){
 			
@@ -35,14 +36,14 @@ public class Service implements IService {
 	
 	public User withdraw (User u, double value, int date) throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		if(u == null){
-			throw new InvalidAccountException("Null User");
+			throw new InvalidAccountException(nu);
 		}
 		else if(value>1000.0d){
 			throw new WithdrawalExcessiveException("Cannot withdraw so much money");
 		}
 		else if(!checkAccount(u.getUserID())){
 			
-			throw new InvalidAccountException("Account not present");
+			throw new InvalidAccountException(anp);
 			
 		}else if(u.getBalance()<value){
 			
@@ -58,11 +59,11 @@ public class Service implements IService {
 	
 	public User deposit(User u, double value, int date)throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
 		if(u == null){
-			throw new InvalidAccountException("Null User");
+			throw new InvalidAccountException(nu);
 		}
 		else if(!checkAccount(u.getUserID())){
 			
-			throw new InvalidAccountException("Account not present");
+			throw new InvalidAccountException(anp);
 			
 		}else{
 			repo.findAll()[repo.findAccount(u.getUserID())].setBalance(value+u.getBalance());
@@ -105,7 +106,7 @@ public class Service implements IService {
 		}
 		else if(!checkAccount(u.getUserID())){
 			
-			throw new InvalidAccountException("Account not present");
+			throw new InvalidAccountException(anp);
 			
 		}else{
 			return repo.findAll()[repo.findAccount(u.getUserID())];
@@ -119,7 +120,7 @@ public class Service implements IService {
 		}
 		else if(!checkAccount(u.getUserID())){
 			
-			throw new InvalidAccountException("Account not present");
+			throw new InvalidAccountException(anp);
 			
 		}else{
 			
@@ -127,10 +128,8 @@ public class Service implements IService {
 			int j = 0;
 			for(int i = 0; i<repo.findAll()[repo.findAccount(u.getUserID())].getTransactions().length; i++){
 				
-				if(dateFrom<=repo.findAll()[repo.findAccount(u.getUserID())].getTransactions()[i].getTransactionDate()){
+				if(dateFrom<=repo.findAll()[repo.findAccount(u.getUserID())].getTransactions()[i].getTransactionDate() && dateTo>=repo.findAll()[repo.findAccount(u.getUserID())].getTransactions()[i].getTransactionDate()){
 					
-					if(dateTo>=repo.findAll()[repo.findAccount(u.getUserID())].getTransactions()[i].getTransactionDate()){
-						
 						Transaction[] newTransactionsArrayCopy = new Transaction[newTransactionArray.length + 1];
 							
 						for(int k = 0 ; k< newTransactionArray.length; k++){
@@ -139,7 +138,7 @@ public class Service implements IService {
 							newTransactionArray = newTransactionsArrayCopy;
 							newTransactionArray[j] = repo.findAll()[repo.findAccount(u.getUserID())].getTransactions()[i];
 							j++;
-					}
+					
 					
 				}else{
 					throw new IncorrectDateRange("Date is not applicable");
@@ -156,7 +155,7 @@ public class Service implements IService {
 			throw new InvalidAccountException("Null transfering user");
 		}else if(!checkAccount(u.getUserID())){
 			
-			throw new InvalidAccountException("Account not present");
+			throw new InvalidAccountException(anp);
 			
 		}else{
 			for(User person:repo.findAll()){
