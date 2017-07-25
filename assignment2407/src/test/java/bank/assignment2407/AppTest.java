@@ -40,7 +40,7 @@ public class AppTest
 	
 	@Test(expected = InsufficientFundsException.class)
 	public void withdrawingMoreThanInAccount()throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange {
-		new Utility();
+		
 		User u = new User(Utility.uniqueIDGenerator(), 140.0d);
     	service.createAccount(u);
 		service.withdraw(u, 150.0d,0724);
@@ -48,7 +48,7 @@ public class AppTest
 	
 	@Test(expected = WithdrawalExcessiveException.class)
 	public void withdrawingMoreThanLimit() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
-		new Utility();
+		
 		User u = new User(Utility.uniqueIDGenerator(), 1400.0d);
     	service.createAccount(u);
     	service.withdraw(u, 1100.0d,0724);
@@ -66,7 +66,7 @@ public class AppTest
 
 	@Test
 	public void depositingMoney() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
-		new Utility();
+		
 		User u = new User(Utility.uniqueIDGenerator(), 1400.0d);
 		service.createAccount(u);
 		
@@ -86,7 +86,7 @@ public class AppTest
 	
 	@Test
 	public void viewingBalance() throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
-		new Utility();
+		
 		User u = new User(Utility.uniqueIDGenerator(), 1400.0d);
 		service.createAccount(u);
 		

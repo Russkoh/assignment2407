@@ -9,6 +9,8 @@ import utility.*;
 public class Service implements IService {
 
 	private IRepository repo = new Repository();
+	String nu = "Null User", anp = "Account not present";
+	
 
 	
 	public String createAccount(User u) throws InsufficientFundsException,WithdrawalExcessiveException, InvalidAccountException, IncorrectDateRange{
