@@ -1,0 +1,25 @@
+Scenario: User creating the account
+Given: User is  trying to create the account in the system
+When: He gives name Sagar Kulkarni and Amount as 300
+Then: system should create the account successfully
+
+Given: User is  trying to create the account in the system
+When: He gives name Sagar Kulkarni and Amount as 50
+Then: system should generate error as the "Amount should be greater than 100"
+
+Given user is trying to create the account in System
+When : He passes "null" as user name 
+Then: System should generate error message as "Please give valid user name"
+
+Scenario: User is getting his account balance 
+Given: User is trying to retrieve balance of his account 
+When: He gives account number
+And: system finds the account with that number
+Then: System should return the account details
+
+Given: User is trying to retrieve balance of his account 
+When: He gives account number
+And: system does not find the account with that number
+Then: System should generate an error
+
+

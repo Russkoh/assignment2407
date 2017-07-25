@@ -1,15 +1,19 @@
 package user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import transaction.Transaction;
 public class User {
 
 	private double balance;
-	private Transaction[] transactions = new Transaction[0];
+	private List <Transaction> transactions = new ArrayList<Transaction>();
 	private int userID;
+	private Customer customer;
 	
-	public User(int userID, double value){
+	public User(int userID){
+		super();
 		this.userID = userID;
-		this.setBalance(value);
 		
 	}
 	
@@ -21,29 +25,24 @@ public class User {
 		return this.userID;
 	}
 	
-	public Transaction[] getTransactions(){
+	public List<Transaction> getTransactions(){
 		return this.transactions;
 	}
 	
 	public void setBalance(double value){
 		this.balance = value;
 	}
+	
 	public void setTransactions(Transaction t){
-		
-			
-			Transaction[] copyOfTransactions = new Transaction[transactions.length+1];
-			
-			for(int i = 0; i< transactions.length; i++){
-				copyOfTransactions[i] = transactions[i];	
-			}
-			
-			copyOfTransactions[ transactions.length] = t;
-			transactions = copyOfTransactions;
-		
-		
+			transactions.add(t);
 	}
-	public void setTransactionsArray(Transaction[] t){
-		this.transactions = t;
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 }

@@ -1,35 +1,37 @@
 package repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import user.User;
 
 public class Repository implements IRepository {
 	
-	private User[] users = new User[0];
-	public String saveAccount(int userID, double value){
-		
-		User[] copyOfUsers = new User[users.length+1];
-		
-		for(int i = 0; i< users.length; i++){
-			copyOfUsers[i] = users[i];	
-		}
-		
-		copyOfUsers[users.length] = new User(userID,value);
-		users = copyOfUsers;
-		
-		return "Account has been saved";
+	private List<User> users;
+	
+	public Repository(){
+		super();
+		users = new ArrayList<User>();
 	}
 	
-	public int findAccount(int userID){
-		for(int i = 0; i < users.length; i++){
-			if(users[i].getUserID() == userID){
-				return i;
+	public boolean saveAccount(User u){
+		
+		users.add(u);
+		
+		return true;
+	}
+	
+	public User findAccount(int userID){
+		//System.out.println(userID);
+		for(User u : users) {
+			if(u.getUserID() == userID) {
+				return u;
 			}
 		}
-		return -1;
-	}
-	
-	public User[] findAll(){
-		return this.users;
+		return null;
 	}
 
+	
+
+	
 }

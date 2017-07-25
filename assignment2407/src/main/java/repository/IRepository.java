@@ -1,11 +1,13 @@
 package repository;
 
+import java.util.List;
+
 import user.User;
 
 
 public interface IRepository {
 
-	String saveAccount(int userID, double value);
-	int findAccount(int userID);
-	User[] findAll();
+	boolean saveAccount(User u);
+	User findAccount(int userID);
+
 }
